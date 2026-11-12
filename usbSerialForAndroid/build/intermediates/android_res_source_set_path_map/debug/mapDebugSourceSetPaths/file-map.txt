@@ -1,0 +1,9 @@
+com.hoho.android.usbserial.usbSerialForAndroid-pngs-0 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\build\generated\res\pngs\debug
+com.hoho.android.usbserial.usbSerialForAndroid-resValues-1 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\build\generated\res\resValues\debug
+com.hoho.android.usbserial.usbSerialForAndroid-updated_navigation_xml-2 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\build\generated\updated_navigation_xml\debug
+com.hoho.android.usbserial.usbSerialForAndroid-mergeDebugResources-3 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.hoho.android.usbserial.usbSerialForAndroid-mergeDebugResources-4 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.hoho.android.usbserial.usbSerialForAndroid-debug-5 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\build\intermediates\merged_res\debug\mergeDebugResources
+com.hoho.android.usbserial.usbSerialForAndroid-debug-6 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\build\intermediates\packaged_res\debug\packageDebugResources
+com.hoho.android.usbserial.usbSerialForAndroid-debug-7 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\src\debug\res
+com.hoho.android.usbserial.usbSerialForAndroid-main-8 C:\Users\niloc\StudioProjects\SSE-HUD-Android-App\usbSerialForAndroid\src\main\res

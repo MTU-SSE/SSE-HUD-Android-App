@@ -99,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView RpmNumber, RpmNumber2, SpeedLabel, SpeedNumber, SpeedNumber2, LapNumber,
             TimerLabel, TimerNumber, LapOffsetTimer, IdealStartCountdown, VoltageNumber, FuelPressure, LambdaNumber,
             CoolantTemperature, BurnOrCoast, GPSSpeed, Latitude, Longitude, IPAddress,
-            ResetLapButton, rawBluetoothData, ErrorNotif, hasLeftStartAreaIndicator;
+            ResetLapButton, rawBluetoothData, ErrorNotif, hasLeftStartAreaIndicator, RpmNumber3, SpeedNumber3, SpeedLabel3,
+            TotalWattHrsNum, RegenHrsNum, TotalCurrentNum, TempNum2, GPSSpeed2, URL_Number, LatNumber2, LongNumber2;
+
     private ProgressBar RedlineIndicator, ThrottlePositionBar;
     private Button RecordingButton, StarterIndicator, EngineIndicator;
 
@@ -173,6 +175,19 @@ public class MainActivity extends AppCompatActivity {
         IPAddress = findViewById(R.id.IPAddrNumber);
         ResetLapButton = findViewById(R.id.resetLapButton);
         rawBluetoothData = findViewById(R.id.raw_bluetooth_data);
+
+        // EV references to UI elements (keeping ICE and BE vars separate for readability)
+        GPSSpeed2 = findViewById(R.id.GPS_Speed_Num2);
+        RpmNumber3 = findViewById(R.id.rpmNumber3);
+        RegenHrsNum = findViewById(R.id.regenHrsNum);
+        SpeedLabel3 = findViewById(R.id.speedLabel3);
+        SpeedNumber3 = findViewById(R.id.speedNumber3);
+        TotalCurrentNum = findViewById(R.id.totalCurrentNum);
+        TotalWattHrsNum = findViewById(R.id.totalWattHrsNum);
+        TempNum2 = findViewById(R.id.tempNum2);
+        URL_Number = findViewById(R.id.URL_Number);
+        LatNumber2 = findViewById(R.id.latNumber2);
+        LongNumber2 = findViewById(R.id.longNumber2);
 
         // Bluetooth Setup
         deviceList = findViewById(R.id.device_list);
@@ -293,6 +308,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (IPAddress != null) IPAddress.setText("http://" + getWifiIpAddress() + ":8080");
+                if (URL_Number != null) URL_Number.setText("http://" + getWifiIpAddress() + ":8080"); // EV
                 if (race_start_timestamp != 0) {
                     append_csv();
                 }
@@ -350,11 +366,14 @@ public class MainActivity extends AppCompatActivity {
             gps_speed = location.getSpeed() * 2.23693629;
             double time_millis = location.getTime();
             updateDataFrame("gps_time", time_millis);
-            Latitude.setText(String.format(Locale.ENGLISH, "%.4f", lat));
+            Latitude.setText(String.format(Locale.ENGLISH, "%.4f", lat)); // ICE screen
+            LatNumber2.setText(String.format(Locale.ENGLISH, "%.4f", lat)); // EV screen
             updateDataFrame("gps_latitude", String.format(Locale.ENGLISH, "%.4f", lat));
-            Longitude.setText(String.format(Locale.ENGLISH, "%.4f", lon));
+            Longitude.setText(String.format(Locale.ENGLISH, "%.4f", lon)); // ICE screen
+            LongNumber2.setText(String.format(Locale.ENGLISH, "%.4f", lon)); // EV screen
             updateDataFrame("gps_longitude", String.format(Locale.ENGLISH, "%.4f", lon));
-            GPSSpeed.setText(String.format(Locale.ENGLISH, "%.2f", gps_speed));
+            GPSSpeed.setText(String.format(Locale.ENGLISH, "%.2f", gps_speed)); // ICE screen
+            GPSSpeed2.setText(String.format(Locale.ENGLISH, "%.2f", gps_speed)); // EV Screen
             updateDataFrame("gps_speed", gps_speed);
 
             // GPS Lap Counter Logic
@@ -432,6 +451,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         IPAddress.setText("http://" + getWifiIpAddress() + ":8080");
+        URL_Number.setText("http://" + getWifiIpAddress() + ":8080");
 
         startBluetoothAutoConnect();
         listPairedDevices();
@@ -889,6 +909,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 2:
+                    case 3:
                         switch (message.messageID) {
 
                             // message 1: structure: data 7 - data 6 (duty cycle), data 5 - data 4 (current), data 3 - data 0 (RPMs)
@@ -898,16 +919,41 @@ public class MainActivity extends AppCompatActivity {
                                 int current = message.getContentVariable(16, 16) / 10; // 2 byte offset, 2 byte length
 
                                 // calculate wheel speed
-                                int wheel_speed = 0; // (RPM * Tire Diameter) / Total Gear Ratio
+                                // Note: Wheel Speed is currently here as wheel speed sensor has not been implemented yet
+                                double wheel_speed = (((double)RPM * 19) / (18.4 * 336)); // ((RPM * tire diameter) / (gear ratio * 336))
 
                                 // write screen logic
+                                RpmNumber.setText(String.format(Locale.ENGLISH, "%d", RPM));
+                                RpmNumber3.setText(String.format(Locale.ENGLISH, "%d", RPM));
+
+                                // Speed logic + data frame update
+                                SpeedLabel.setText("Speed (MOCO)");
+                                SpeedNumber.setText(String.format(Locale.ENGLISH, "%.1f", wheel_speed)); // send wheel speed to display cast as int to fit formatting
+                                SpeedNumber3.setText(String.format(Locale.ENGLISH, "%.1f", wheel_speed)); // make sure data reaches EV screen
+                                updateDataFrame("UC_wheel_speed", String.format(Locale.ENGLISH, "%.1f", wheel_speed));
+                                ecu_speed_timestamp = System.currentTimeMillis();
+
+                                // send current to EV data screen
+                                TotalCurrentNum.setText(String.format(Locale.ENGLISH, "%d A", current));
+                                updateDataFrame("total_current", String.format(Locale.ENGLISH, "%d", current));
+
+                                // add redline logic when I know more about the motor (would be cool, but not necessary)
+                                // turn RPM number and maybe label green at safe levels, yellow when nearing redline, red at redline and nearing max rpm
+
                                 break;
                             case 0x0F: // CAN Packet Message 3: Total Watt-Hours, Total-Regen Hours
 
                                 double regen_hrs = message.getContentVariable(0, 32) / 1000.0; // 0 byte offset, 4 byte length
                                 double watt_hrs = message.getContentVariable(32, 32) / 1000.0; // 4 byte offset, 4 byte length
 
-                                // write screen logic
+                                // screen logic
+                                RegenHrsNum.setText(String.format(Locale.ENGLISH, "%.0f Wh", regen_hrs));
+                                TotalWattHrsNum.setText(String.format(Locale.ENGLISH, "%.0f Wh", watt_hrs));
+
+                                // data frame logic
+                                updateDataFrame("total_Watt_hrs", String.format(Locale.ENGLISH, "%.1f", watt_hrs));
+                                updateDataFrame("total_regen_hrs", String.format(Locale.ENGLISH, "%.1f", regen_hrs));
+
                                 break;
                             case 0x10: // CAN Packet Message 4: MOSFET Temp, Motor Temp
 
@@ -915,6 +961,11 @@ public class MainActivity extends AppCompatActivity {
                                 double MOSFET_TEMP = message.getContentVariable(48, 16) / 10.0; // presumed Celsius
 
                                 // write screen logic here
+                                TempNum2.setText(String.format(Locale.ENGLISH, "%.0f C", motor_temp));
+
+                                // data frame
+                                updateDataFrame("Motor_temp", String.format(Locale.ENGLISH, "%.1f", motor_temp));
+                                updateDataFrame("MOSFET_Temp", String.format(Locale.ENGLISH, "%.1f", MOSFET_TEMP));
                                 break;
                         }
                         break;
@@ -1058,11 +1109,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] csv_headers = {
             "row", "lap_number", "unix_timestamp", "lap_unix_timestamp", "distance", "lap_distance", "gps_time",
-            "gps_latitude", "gps_longitude", "gps_speed", "ecu_speed", "throttle_position", "engine_efficiency",
-            "oil_temp", "engine_load", "wheel_speed_ecu", "wheel_speed_arduino", "fuel_injector_timing",
-            "acceleration_lateral", "acceleration_longitudinal", "acceleration_vertical", "fuel_pressure",
-            "battery_voltage", "message_rec_bits",
-            "0x640", "0x641", "0x642", "0x649", "0x64C", "0x460", "0x118"
+            "gps_latitude", "gps_longitude", "gps_speed", "ecu_speed", "UC_wheel_speed", "throttle_position", "engine_efficiency",
+            "total_current", "total_Watt_hrs", "total_regen_hrs", "oil_temp", "engine_load", "wheel_speed_ecu", "wheel_speed_arduino",
+            "Motor_temp", "MOSFET_Temp", "fuel_injector_timing", "acceleration_lateral", "acceleration_longitudinal", "acceleration_vertical",
+            "fuel_pressure", "battery_voltage", "message_rec_bits", "0x640", "0x641", "0x642", "0x649", "0x64C", "0x460", "0x118"
     };
 
     public static class Message {

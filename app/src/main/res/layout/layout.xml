@@ -301,6 +301,8 @@
 
         <include layout="@layout/view_dash_data" />
 
+        <include layout="@layout/view_dash_uc_be_data" />
+
         <include layout="@layout/fragment_bluetooth_select" />
 
         <include layout="@layout/view_lap_timing" />
@@ -316,6 +318,7 @@
         android:background="#000000"
         app:layout_constraintBottom_toTopOf="@+id/throttlePositionBar"
         app:layout_constraintEnd_toEndOf="@+id/viewSwitcher"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:tabGravity="start"
         app:tabIndicatorColor="#00FF00"
@@ -335,6 +338,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="More Data" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/EV_Data_Tabitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EV Data"/>
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/bluetoothTabitem"

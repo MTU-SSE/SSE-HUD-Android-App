@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stats_view_2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/speedLabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Speed"
+        android:textAlignment="center"
+        android:textColor="#00FF00"
+        android:textSize="40sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/speedNumber3"
+        app:layout_constraintEnd_toEndOf="@+id/speedNumber3"
+        app:layout_constraintStart_toStartOf="@+id/speedNumber3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/speedNumber3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="-12"
+        android:textAlignment="center"
+        android:textColor="#00FF00"
+        android:textSize="100sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/rpmLabel3"
+        app:layout_constraintEnd_toEndOf="@+id/rpmLabel3"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/rpmLabel3"
+        app:layout_constraintTop_toBottomOf="@+id/speedLabel3" />
+
+    <TextView
+        android:id="@+id/rpmLabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="RPM"
+        android:textColor="#00FF00"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/rpmNumber3"
+        app:layout_constraintEnd_toEndOf="@+id/rpmNumber3"
+        app:layout_constraintStart_toStartOf="@+id/rpmNumber3"
+        app:layout_constraintTop_toBottomOf="@+id/speedNumber3" />
+
+    <TextView
+        android:id="@+id/rpmNumber3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="-123"
+        android:textAlignment="center"
+        android:textColor="#00FF00"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rpmLabel3" />
+
+    <TextView
+        android:id="@+id/totalWattHrs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Total Watt Hrs"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/totalRegenHrs"
+        app:layout_constraintEnd_toEndOf="@+id/totalRegenHrs"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/totalRegenHrs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Total Regen Hrs"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/totalCurrent"
+        app:layout_constraintEnd_toEndOf="@+id/totalCurrent"
+        app:layout_constraintTop_toBottomOf="@+id/totalWattHrs" />
+
+    <TextView
+        android:id="@+id/totalCurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="250dp"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Total Current"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/motorTemp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalRegenHrs" />
+
+    <TextView
+        android:id="@+id/motorTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Motor Temp"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/GPS_Speed"
+        app:layout_constraintEnd_toEndOf="@+id/totalCurrent"
+        app:layout_constraintTop_toBottomOf="@+id/totalCurrent" />
+
+    <TextView
+        android:id="@+id/GPS_Speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="GPS Speed"
+        android:textColor="#00FF00"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/urlLabel"
+        app:layout_constraintEnd_toEndOf="@+id/motorTemp"
+        app:layout_constraintTop_toBottomOf="@+id/motorTemp" />
+
+    <TextView
+        android:id="@+id/urlLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="URL:"
+        android:textColor="#00FF00"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/latitudeLabel2"
+        app:layout_constraintEnd_toEndOf="@+id/GPS_Speed"
+        app:layout_constraintTop_toBottomOf="@+id/GPS_Speed" />
+
+    <TextView
+        android:id="@+id/latitudeLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Lat:"
+        android:textColor="#00FF00"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/longitudeLabel2"
+        app:layout_constraintEnd_toEndOf="@+id/urlLabel"
+        app:layout_constraintTop_toBottomOf="@+id/urlLabel" />
+
+    <TextView
+        android:id="@+id/longitudeLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Lon:"
+        android:textColor="#00FF00"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/latitudeLabel2"
+        app:layout_constraintTop_toBottomOf="@+id/latitudeLabel2" />
+
+    <TextView
+        android:id="@+id/longNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="0.0000"
+        android:textColor="#00FF00"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/longitudeLabel2"
+        app:layout_constraintTop_toBottomOf="@+id/latNumber2" />
+
+    <TextView
+        android:id="@+id/latNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="0.0000"
+        android:textColor="#00FF00"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/longNumber2"
+        app:layout_constraintStart_toStartOf="@+id/longNumber2"
+        app:layout_constraintTop_toBottomOf="@+id/URL_Number" />
+
+    <TextView
+        android:id="@+id/URL_Number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="Starting..."
+        android:textColor="#00FF00"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/latNumber2"
+        app:layout_constraintStart_toStartOf="@+id/latNumber2"
+        app:layout_constraintTop_toBottomOf="@+id/GPS_Speed_Num2" />
+
+    <TextView
+        android:id="@+id/GPS_Speed_Num2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="-0.00"
+        android:textColor="#00FF00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/URL_Number"
+        app:layout_constraintStart_toStartOf="@+id/URL_Number"
+        app:layout_constraintTop_toBottomOf="@+id/tempNum2"/>
+
+    <TextView
+        android:id="@+id/tempNum2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="-1 C"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/GPS_Speed_Num2"
+        app:layout_constraintStart_toStartOf="@+id/GPS_Speed_Num2"
+        app:layout_constraintTop_toBottomOf="@+id/totalCurrentNum" />
+
+    <TextView
+        android:id="@+id/totalCurrentNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="-1 A"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tempNum2"
+        app:layout_constraintStart_toStartOf="@+id/tempNum2"
+        app:layout_constraintTop_toBottomOf="@+id/regenHrsNum" />
+
+    <TextView
+        android:id="@+id/regenHrsNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="-1 Wh"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/totalCurrentNum"
+        app:layout_constraintStart_toStartOf="@+id/totalCurrentNum"
+        app:layout_constraintTop_toBottomOf="@+id/totalWattHrsNum"/>
+
+    <TextView
+        android:id="@+id/totalWattHrsNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:scaleY="1.1"
+        android:text="-1 Wh"
+        android:textColor="#00FF00"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/regenHrsNum"
+        app:layout_constraintStart_toStartOf="@+id/regenHrsNum" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
