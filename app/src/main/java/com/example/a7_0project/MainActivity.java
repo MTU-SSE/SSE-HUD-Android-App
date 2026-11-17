@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             TimerLabel, TimerNumber, LapOffsetTimer, IdealStartCountdown, VoltageNumber, FuelPressure, LambdaNumber,
             CoolantTemperature, BurnOrCoast, GPSSpeed, Latitude, Longitude, IPAddress,
             ResetLapButton, rawBluetoothData, ErrorNotif, hasLeftStartAreaIndicator, RpmNumber3, SpeedNumber3, SpeedLabel3,
-            TotalWattHrsNum, RegenHrsNum, TotalCurrentNum, TempNum2, GPSSpeed2, URL_Number, LatNumber2, LongNumber2;
+            TotalWattHrsNum, RegenHrsNum, TotalCurrentNum, TempNum2, GPSSpeed2, URL_Number, LatNumber2, LongNumber2, THRTL;
 
     private ProgressBar RedlineIndicator, ThrottlePositionBar;
     private Button RecordingButton, StarterIndicator, EngineIndicator;
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         IdealStartCountdown = findViewById(R.id.idealStartCountdown);
         RedlineIndicator = findViewById(R.id.redlineIndicator);
         ThrottlePositionBar = findViewById(R.id.throttlePositionBar);
+        THRTL = findViewById(R.id.THRTL_POS);
         RecordingButton = findViewById(R.id.recordingButton);
         VoltageNumber = findViewById(R.id.voltageNumber);
         FuelPressure = findViewById(R.id.fuelPressureNumber);
@@ -856,6 +857,10 @@ public class MainActivity extends AppCompatActivity {
                                 int throttlePosition = message.getContentVariable(48, 16) * 10;
                                 ThrottlePositionBar.setProgress(throttlePosition);
                                 updateDataFrame("throttle_position", String.format(Locale.ENGLISH, "%d", throttlePosition));
+
+                                //throttle position UI element to "more data" for sanity checking on testing
+                                THRTL.setText(String.format(Locale.ENGLISH, "%d%%", throttlePosition));
+
                                 break;
                             case 0x641:
                                 int fuelPressure = message.getContentVariable(32, 16) / 10;
